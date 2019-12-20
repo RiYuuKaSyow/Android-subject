@@ -8,12 +8,20 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:id="@+id/StartBtn"
-            android:text="@string/StartBtn"
+            android:id="@+id/SudokuBtn"
+            android:text="@string/SudokuBtn"
+            style="@style/BtnText"
+            />
+        <Button
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/TictocBtn"
+            android:text="@string/TictocBtn"
             style="@style/BtnText"
             />
     </LinearLayout>

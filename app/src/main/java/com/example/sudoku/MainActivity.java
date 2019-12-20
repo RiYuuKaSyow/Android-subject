@@ -13,14 +13,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.index);
-        Button btn = (Button) findViewById(R.id.StartBtn);
-        btn.setOnClickListener(this);
+        Button sudokubtn = (Button) findViewById(R.id.SudokuBtn);
+        sudokubtn.setOnClickListener(this);
+        Button tictocbtn = (Button) findViewById(R.id.TictocBtn);
+        tictocbtn.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        Intent it = new Intent(this, Game.class);
-        //it.setClass(this,Game.class);
-        startActivity(it);
+        Intent it = new Intent();
+        switch (v.getId()){
+            case R.id.SudokuBtn: {
+                it.setClass(this, Sudoku.class);
+                startActivity(it);
+                break;
+            }
+            case R.id.TictocBtn: {
+                it.setClass(this,TicToc.class);
+                startActivity(it);
+                break;
+            }
+        }
+
+        //it.setClass(this,Sudoku.class);
+
     }
 }

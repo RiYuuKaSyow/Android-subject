@@ -4,16 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Game">
-    <GridView
-        android:id="@+id/board"
+    tools:context=".Sudoku">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:numColumns="9"/>
-    <GridView
-        android:id="@+id/number"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:numColumns="9"
-        tools:ignore="MissingConstraints" />
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        android:orientation="vertical">
+        <GridView
+            android:id="@+id/board"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:numColumns="9"
+            android:layout_marginBottom="60dp"
+            android:verticalSpacing="10dp"/>
+
+        <GridView
+            android:id="@+id/number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:numColumns="9"
+            android:layout_weight="1"
+            tools:ignore="MissingConstraints" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="40dp"
+            android:textColor="@color/white"
+            android:id="@+id/Res"/>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

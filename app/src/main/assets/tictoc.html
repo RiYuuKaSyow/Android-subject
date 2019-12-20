@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+    <style media="screen">
+        #board{
+            background-color:black ;
+        }
+        .slot{
+            background-color:white;
+            width:30vw;
+            height:30vw;
+            text-align:center;
+            font-size:250%;
+        }
+        #res{
+            font-size:250%;
+        }
+    </style>
+    <table id="board">
+        
+    </table>
+    <div id="res"></div>
+    <script type="text/javascript">
+        const slots = document.getElementsByClassName('slot');
+        const board = document.getElementById('board') ;
+        let str = '' ;
+        board.innerHTML = str ;
+        for(let i = 0 ; i < 3 ; i++){
+            str += '<tr><td class="slot"></td><td class="slot"></td><td class="slot"></td></tr>' ;
+        }
+        board.innerHTML = str ;
+        for(let i = 0 ; i < slots.length ; i++){
+            slots[i].addEventListener('click',function(){
+                if(this.innerHTML == ''){
+                    this.innerHTML = 'O' ;
+                    computer();
+                    check();
+                }
+            });
+        }
+        function computer(){
+            let slots = document.getElementsByClassName('slot');
+            let emptySlot = []  ;
+            let col = [0,0,0], row = [0,0,0] , line = [0,0] ;
+            
+            for(let i = 0 ; i < 9; i++){
+                let t = 0 ;
+                if( slots[i].innerHTML == '' ){
+                    emptySlot.push(i);    
+                }else if( slots[i].innerHTML == 'O' ){
+                    t = 2 ;
+                }else if( slots[i].innerHTML == 'X' ){
+                    t = -1 ;
+                }
+                col[Math.floor(i%3)] += t ;
+                row[Math.floor(i/3)] += t ;
+                switch(i){
+                    case 0:
+                    case 4:
+                    case 8: line[0] += t ; break;
+                }
+                switch(i){
+                    case 2:
+                    case 4:
+                    case 6: line[1] += t ; break;
+                }
+            }
+            let index = nextmove(col,row,line,emptySlot) ;
+            move(slots,index) ;
+        }
+        function nextmove(col,row,line,emptySlot){
+            console.log(col,row,line);
+            if( row.indexOf(-2) >= 0 ){
+                return [row.indexOf(-2)*3,1] ;
+            }
+            else if( col.indexOf(-2) >= 0 ){
+                return [col.indexOf(-2)%3,3] ;
+            }
+            else if( line.indexOf(-2) >= 0 ){
+                let t ;
+                let i ;
+                if( line.indexOf(-2) > 0 ){
+                    i = 2 ;
+                    t = 2 ;
+                }else{
+                    i = 0;
+                    t = 4 ;
+                }
+                return [i,t];
+            }
+            else if( row.indexOf(4) >= 0 ){
+                return [row.indexOf(4)*3,1] ;
+            }
+            else if( col.indexOf(4) >= 0 ){
+                return [col.indexOf(4)%3,3]  ;
+            }
+            else if( line.indexOf(4) >= 0 ){
+                let t ;
+                let i ;
+                if( line.indexOf(4) > 0 ){
+                    i = 2 ;
+                    t = 2 ;
+                }else{
+                    i = 0 ;
+                    t = 4 ;
+                }
+                return [i,t] ;
+            }else{
+                return [emptySlot[0],1];
+            }
+            
+        }
+        function move(slots,index){
+            console.log(index);
+            for(let i = index[0] ; i <= index[0]+(index[1]*2) ; i += index[1]){
+                if( slots[i].innerHTML == '' ){
+                    slots[i].innerHTML = 'X' ;
+                    return ;
+                }
+            }
+        }
+        function check(){
+            var s = 0;
+            var res = document.getElementById('res');
+            for(let i = 0 ; i  < 9 ; i++ ){
+                if( i % 3 == 0){
+                    s = 0 ;
+                }
+                if( slots[i].innerHTML == 'O' ){
+                    s += 2 ;
+                }else if( slots[i].innerHTML == ''){
+                    s += 0 ;
+                }else{
+                    s += -1 ;
+                }
+                if( s == 6 ){
+                    res.innerHTML = 'You Win!' ;
+                    pause();
+                    return 1 ;
+                }else if( s == -3){
+                    res.innerHTML = 'You Lose!' ;
+                    pause();
+                    return -1 ;
+                }
+            }
+            for(let i = 0 ; i  < 3 ; i++ ){
+                s = 0 ;
+                for( let j = 0 ; j < 3 ; j++){
+                    switch(slots[i + (3*j)].innerHTML){
+                        case 'O': s+=2 ; break;
+                        case '' : s+=0 ; break;
+                        case 'X': s-=1 ; break;
+                    }
+                    if( s ==6 ){
+                        res.innerHTML = 'You Win!' ;
+                        pause();
+                        return 1 ;
+                    }else if( s == -3){
+                        res.innerHTML = 'You Lose!' ;
+                        pause();
+                        return -1 ;
+                    }
+                }
+            }
+            s = 0 ;
+            for( let i = 0 ; i < 9 ; i+=4){
+                switch(slots[i].innerHTML){
+                    case 'O': s+=2 ; break;
+                    case '' : s+=0 ; break;
+                    case 'X': s-=1 ; break;
+                }
+                if( s ==6 ){
+                    res.innerHTML = 'You Win!' ;
+                    pause();
+                    return 1 ;
+                }else if( s == -3){
+                    res.innerHTML = 'You Lose!' ;
+                    pause();
+                    return -1 ;
+                }
+            }
+            s = 0 ;
+            for( let i = 2 ; i < 7 ; i+=2){
+                switch(slots[i].innerHTML){
+                    case 'O': s+=2 ; break;
+                    case '' : s+=0 ; break;
+                    case 'X': s-=1 ; break;
+                }
+                if( s ==6 ){
+                    res.innerHTML = 'You Win!' ;
+                    pause();
+                    return 1 ;
+                }else if( s == -3){
+                    res.innerHTML = 'You Lose!' ;
+                    pause();
+                    return -1 ;
+                }
+            }
+            for( let i = 0 ; i < 9 ; i++ ){
+                if( slots[i].innerHTML == '' ){
+                    return 0 ;
+                }
+            }
+            res.innerHTML = 'Draw' ;
+        }
+    </script>
+</body>
+</html>
