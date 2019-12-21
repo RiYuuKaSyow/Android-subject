@@ -4,7 +4,7 @@
 </head>
 <body>
     <style media="screen">
-        #board{
+        #sudokuBoard{
             background-color:black ;
         }
         .slot{
@@ -18,24 +18,26 @@
             font-size:250%;
         }
     </style>
-    <table id="board">
+    <table id="sudokuBoard">
         
     </table>
     <div id="res"></div>
     <script type="text/javascript">
         const slots = document.getElementsByClassName('slot');
-        const board = document.getElementById('board') ;
+        const sudokuBoard = document.getElementById('sudokuBoard') ;
         let str = '' ;
-        board.innerHTML = str ;
+        sudokuBoard.innerHTML = str ;
         for(let i = 0 ; i < 3 ; i++){
             str += '<tr><td class="slot"></td><td class="slot"></td><td class="slot"></td></tr>' ;
         }
-        board.innerHTML = str ;
+        sudokuBoard.innerHTML = str ;
         for(let i = 0 ; i < slots.length ; i++){
             slots[i].addEventListener('click',function(){
                 if(this.innerHTML == ''){
                     this.innerHTML = 'O' ;
-                    computer();
+                    if(check() <= 0){
+                        computer();
+                    }
                     check();
                 }
             });

@@ -11,7 +11,7 @@
         android:background="@color/background"
         android:orientation="vertical">
         <GridView
-            android:id="@+id/board"
+            android:id="@+id/sudokuBoard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"

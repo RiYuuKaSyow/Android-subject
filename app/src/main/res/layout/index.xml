@@ -20,8 +20,15 @@
         <Button
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:id="@+id/TictocBtn"
+            android:id="@+id/TictocP1Btn"
             android:text="@string/TictocBtn"
+            style="@style/BtnText"
+            />
+        <Button
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/TictocP2Btn"
+            android:text="@string/Tictoc2Btn"
             style="@style/BtnText"
             />
     </LinearLayout>

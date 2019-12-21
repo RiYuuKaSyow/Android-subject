@@ -15,8 +15,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.index);
         Button sudokubtn = (Button) findViewById(R.id.SudokuBtn);
         sudokubtn.setOnClickListener(this);
-        Button tictocbtn = (Button) findViewById(R.id.TictocBtn);
-        tictocbtn.setOnClickListener(this);
+        Button tictoc1btn = (Button) findViewById(R.id.TictocP1Btn);
+        tictoc1btn.setOnClickListener(this);
+        Button tictoc2btn = (Button) findViewById(R.id.TictocP2Btn);
+        tictoc2btn.setOnClickListener(this);
     }
 
     @Override
@@ -28,8 +30,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(it);
                 break;
             }
-            case R.id.TictocBtn: {
+            case R.id.TictocP1Btn: {
                 it.setClass(this,TicToc.class);
+                it.putExtra("player",1);
+                startActivity(it);
+                break;
+            }
+            case R.id.TictocP2Btn: {
+                it.setClass(this,TicToc.class);
+                it.putExtra("player",2);
                 startActivity(it);
                 break;
             }
