@@ -30,7 +30,8 @@ public class TicToc extends AppCompatActivity {
                 setContentView(R.layout.tictoc);
                 final TicTocBoard tbc = new TicTocBoard();
                 final GridView tbv = (GridView) findViewById(R.id.ticboard) ;
-                final TextView res = (TextView) findViewById(R.id.ticres) ;
+                final TextView res = (TextView) findViewById(R.id.ticRes) ;
+                res.setText("");
                 ArrayAdapter aad = new ArrayAdapter(this,R.layout.ticslots,tbc.board);
                 tbv.setAdapter(aad);
                 tbv.setOnItemClickListener( new GridView.OnItemClickListener(){

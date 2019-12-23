@@ -20,16 +20,34 @@
         <Button
             android:layout_width="250dp"
             android:layout_height="wrap_content"
+            android:id="@+id/sudokuStart"
+            style="@style/InvistBtn"
+            android:text="開始"/>
+        <Button
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/sudokuRecord"
+            style="@style/InvistBtn"
+            android:text="紀錄"/>
+        <Button
+            android:id="@+id/TictocBtn"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="井字遊戲"
+            style="@style/BtnText"/>
+        <Button
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
             android:id="@+id/TictocP1Btn"
             android:text="@string/TictocBtn"
-            style="@style/BtnText"
+            style="@style/InvistBtn"
             />
         <Button
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:id="@+id/TictocP2Btn"
             android:text="@string/Tictoc2Btn"
-            style="@style/BtnText"
+            style="@style/InvistBtn"
             />
     </LinearLayout>
 

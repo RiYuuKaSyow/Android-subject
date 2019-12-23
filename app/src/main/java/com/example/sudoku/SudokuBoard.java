@@ -81,7 +81,7 @@ public class SudokuBoard {
     public SudokuBoard(){
         getBoard();
         randBoard();
-        //TransBoard();
+        TransBoard();
     }
     public void getBoard(){
         int temp = (int)(Math.random()*6) ;
@@ -108,9 +108,13 @@ public class SudokuBoard {
         }
     }
     public void TransBoard(){
-        Integer[] temp = this.Qboard ;
-        Integer[] res = this.Qboard ;
-        int times = (int)(Math.random()*6) ;
+        int[] temp = new int[81];
+        int[] res = new int[81] ;
+        for(int i = 0; i < 81 ; i++){
+            temp[i] = this.Qboard[i];
+            res[i] = this.Qboard[i];
+        }
+        int times = (int)(Math.random()*4) ;
         for(int i = 0 ; i < times ; i++){
             for(int x = 0 ; x < 9 ; x++){
                 for(int y = 0 ; y < 9 ; y++){
@@ -118,10 +122,14 @@ public class SudokuBoard {
                     res[ (x*9)+y ] = temp[ (y*9)+8-x ] ;
                 }
             }
-            temp = res ;
+            for(int x = 0; x < 81 ; x++){
+                temp[x] = res[x] ;
+            }
         }
-        this.Qboard = res ;
-        this.Aboard = res ;
+        for(int i = 0 ; i < 81 ; i++ ) {
+            this.Qboard[i] = res[i];
+            this.Aboard[i] = res[i];
+        }
     }
     public void getView(){
         for(int i = 0 ; i < 81 ; i++) {

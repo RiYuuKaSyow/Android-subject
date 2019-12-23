@@ -8,20 +8,30 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.time.Duration;
 import java.time.Instant;
+import java.util.HashMap;
+import java.util.Map;
 
-public class Sudoku extends AppCompatActivity {
+public class Sudoku extends AppCompatActivity implements View.OnClickListener {
     private int coordinate = 0;
     private Integer[] nums = {1,2,3,4,5,6,7,8,9,0} ;
+    private GameTime time = new GameTime() ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sudoku);
         final SudokuBoard sudokuBoard = new SudokuBoard();
+        TextView res = (TextView) findViewById(R.id.sudokuRes);
+        final Button postbtn = (Button) findViewById(R.id.postbtn);
+        res.setText( getString(R.string.sudoku , "") );
         sudokuBoard.getView();
         ArrayAdapter aas = new ArrayAdapter(this,R.layout.sudokuslots, sudokuBoard.ViewBoard);
         final GridView bd = (GridView) findViewById(R.id.sudokuBoard);
@@ -35,7 +45,7 @@ public class Sudoku extends AppCompatActivity {
         GridView numbers = (GridView) findViewById(R.id.number);
         ArrayAdapter numaas = new ArrayAdapter(this, R.layout.sudokuslots, this.nums) ;
         numbers.setAdapter(numaas);
-        final Instant start = Instant.now();
+        this.time.Start();
         numbers.setOnItemClickListener(new GridView.OnItemClickListener(){
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
@@ -44,18 +54,33 @@ public class Sudoku extends AppCompatActivity {
                 sudokuBoard.getView();
                 ArrayAdapter aas = new ArrayAdapter(Sudoku.this, R.layout.sudokuslots, sudokuBoard.ViewBoard);
                 bd.setAdapter(aas);
+                TextView res = (TextView) findViewById(R.id.sudokuRes);
                 if( sudokuBoard.isFill() ){
-                    Instant end = Instant.now();
-                    TextView res = (TextView) findViewById(R.id.Res);
+                    time.End();
                     if( sudokuBoard.Check() ){
-                        long time = Duration.between(start,end).toMillis() ;
-                        res.setText("Success , Time:"+ String.valueOf((int)(time/60000)) + "分鐘" +  String.valueOf((int)((time%60000)/1000)) + "秒");
+                        res.setText(getString(R.string.sudoku ,  getString(R.string.sudoku_success,time.GetSpendTimeString())));
+                        postbtn.setVisibility(View.VISIBLE);
                     }else{
-                        res.setText(R.string.fail);
+                        res.setText( getString(R.string.sudoku , getString(R.string.fail) ));
                     }
                 }
+                res.setText("");
             }
         });
 
+        postbtn.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v.getId() == R.id.postbtn){
+            DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+            String key = database.child("sudoku").push().getKey() ;
+            Map<String,Object> post = new HashMap<>();
+            post.put("/sudoku/"+key,this.time.SpendTime);
+            database.updateChildren(post);
+            Button postbtn = (Button) findViewById(R.id.postbtn);
+            postbtn.setVisibility(View.INVISIBLE);
+        }
     }
 }

@@ -2,10 +2,13 @@
     <string name="app_name">app專題</string>
     <string name="Theme">Syow-app專題</string>
     <string name="SudokuBtn">數獨</string>
-    <string name="TictocBtn">井字遊戲1P</string>
-    <string name="Tictoc2Btn">井字遊戲2P</string>
+    <string name="postbtn">上傳成績</string>
+    <string name="TictocBtn">1P</string>
+    <string name="Tictoc2Btn">2P</string>
     <string name="fail">Not Correct</string>
     <string name="p1w">Player1 Win!</string>
     <string name="p2w">Player2 Win!</string>
     <string name="draw"> Draw ! </string>
+    <string name="sudoku">%1s</string>
+    <string name="sudoku_success">Success \nTimes:%1s</string>
 </resources>
