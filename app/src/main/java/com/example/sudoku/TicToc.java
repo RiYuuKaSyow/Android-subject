@@ -44,17 +44,17 @@ public class TicToc extends AppCompatActivity {
                         switch(tbc.check()){
                             case 1:{
                                 res.setText(R.string.p1w);
-                               // tbv.setOnItemClickListener(null);
+                                tbv.setOnItemClickListener(null);
                                 break;
                             }
                             case -1:{
                                 res.setText(R.string.p2w);
-                               // tbv.setOnItemClickListener(null);
+                                tbv.setOnItemClickListener(null);
                                 break ;
                             }
                             case 10:{
                                 res.setText(R.string.draw);
-                               // tbv.setOnItemClickListener(null);
+                                tbv.setOnItemClickListener(null);
                                 break ;
                             }
                         }

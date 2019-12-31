@@ -3,6 +3,7 @@ package com.example.sudoku;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +16,13 @@ import android.widget.TextView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.HashMap;
@@ -27,6 +35,28 @@ public class Sudoku extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent it= getIntent();
+        int from = it.getIntExtra("board",1) ;
+        switch(from){
+            case 1:break;
+            case 2:{
+                URL url = new URL("https://syow.000webhostapp.com/SudokuMaker.php");
+                try {
+                    URLConnection conn = url.openConnection();
+                    StringBuffer sb = new StringBuffer();
+                    String line;
+                    BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8);
+                    while ((line = br.readLine()) != null) {
+                        sb.append(line + "/n");
+                    }
+                    br.close();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            }
+        }
         setContentView(R.layout.activity_sudoku);
         final SudokuBoard sudokuBoard = new SudokuBoard();
         TextView res = (TextView) findViewById(R.id.sudokuRes);

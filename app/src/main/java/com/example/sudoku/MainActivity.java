@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -12,11 +13,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.index);
+
         Button sudokubtn = (Button) findViewById(R.id.SudokuBtn);
         sudokubtn.setOnClickListener(this);
         Button sudokustart = (Button) findViewById(R.id.sudokuStart);
         sudokustart.setOnClickListener(this);
+        Button sudokustart2 = (Button) findViewById(R.id.sudokuStart2);
+        sudokustart2.setOnClickListener(this);
         Button sudokurecord = (Button) findViewById(R.id.sudokuRecord);
         sudokurecord.setOnClickListener(this);
         Button TicBtn = (Button) findViewById(R.id.TictocBtn) ;
@@ -33,6 +38,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
             case R.id.sudokuStart: {
                 it.setClass(this, Sudoku.class);
+                it.putExtra("board",1);
+                startActivity(it);
+                break;
+            }
+            case R.id.sudokuStart2: {
+                it.setClass(this, Sudoku.class);
+                it.putExtra("board",2);
                 startActivity(it);
                 break;
             }
